@@ -28,7 +28,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>..\..\..\codecrackerandall.test.ruleset</CodeAnalysisRuleSet>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -112,6 +112,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Allocations\AllocationAnalyzerTests.cs" />
+    <Compile Include="Allocations\AssertEx.cs" />
+    <Compile Include="Allocations\CallSiteImplicitAllocationAnalyzerTests.cs" />
+    <Compile Include="Allocations\ConcatenationAllocationAnalyzerTests.cs" />
+    <Compile Include="Allocations\DiagnosticEqualityComparer.cs" />
+    <Compile Include="Allocations\DisplayClassAllocationAnalyzerTests.cs" />
+    <Compile Include="Allocations\EnumeratorAllocationAnalyzerTests.cs" />
+    <Compile Include="Allocations\ExplicitAllocationAnalyzerTests.cs" />
+    <Compile Include="Allocations\StackOverflowAnswerTests.cs" />
+    <Compile Include="Allocations\TypeConversionAllocationAnalyzerTests.cs" />
     <Compile Include="ChangeCultureTests.cs" />
     <Compile Include="Design\InconsistentAccessibilityTests.MethodIndexerParameter.cs" />
     <Compile Include="Design\InconsistentAccessibilityTests.MethodIndexerReturnType.cs" />
@@ -136,7 +146,6 @@
     <Compile Include="Refactoring\AllowMembersOrderingCodeFixProviderTests.StyleCop.cs" />
     <Compile Include="Reliability\UseConfigureAwaitFalseTests.cs" />
     <Compile Include="Style\ConsoleWriteLineTests.cs" />
-    <Compile Include="Style\UnnecessaryToStringInStringConcatenationTests.cs" />
     <Compile Include="Style\UseEmptyStringTest.cs" />
     <Compile Include="Style\UseStringEmptyTests.cs" />
     <Compile Include="Style\PropertyPrivateSetTests.cs" />
@@ -224,7 +233,6 @@
     <Folder Include="Interoperability\" />
     <Folder Include="Naming\" />
     <Folder Include="Portability\" />
-    <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\..\packages\codecracker.CSharp.1.0.3\analyzers\dotnet\cs\CodeCracker.Common.dll" />
