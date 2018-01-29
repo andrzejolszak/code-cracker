@@ -21,8 +21,8 @@ var withoutBoxing = 5.ToString() + "":"" + 8.ToString();
             var analyser = new ConcatenationAllocationAnalyzer();
             var info = ProcessCode(analyser, sampleProgram, ImmutableArray.Create(SyntaxKind.AddExpression, SyntaxKind.AddAssignmentExpression));
 
-            Assert.Equal(1, info.Allocations.Count(d => d.Id == "HeapAnalyzerBoxingRule"));
-            Assert.Equal(4, info.Allocations.Count(d => d.Id == "HeapAnalyzerStringConcatRule"));
+            Assert.Equal(1, info.Allocations.Count(d => d.Id == "PAAHeapAnalyzerBoxingRule"));
+            Assert.Equal(4, info.Allocations.Count(d => d.Id == "PAAHeapAnalyzerStringConcatRule"));
 
             //### CODE ### 5.ToString() + ':' + 8.ToString()
             //*** Diagnostic: (9,45): warning HeapAnalyzerBoxingRule: Value type (char) is being boxed to a reference type for a string concatenation.

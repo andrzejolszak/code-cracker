@@ -11,7 +11,7 @@
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class EnumeratorAllocationAnalyzer : DiagnosticAnalyzer
     {
-        public static DiagnosticDescriptor ReferenceTypeEnumeratorRule = new DiagnosticDescriptor("HeapAnalyzerEnumeratorAllocationRule", "Possible allocation of reference type enumerator", "Non-ValueType enumerator may result in an heap allocation", "Performance", DiagnosticSeverity.Warning, true);
+        public static DiagnosticDescriptor ReferenceTypeEnumeratorRule = new DiagnosticDescriptor("PAAHeapAnalyzerEnumeratorAllocationRule", "Possible allocation of reference type enumerator", "Non-ValueType enumerator may result in an heap allocation", "Performance", DiagnosticSeverity.Warning, true);
 
         internal static object[] EmptyMessageArgs = { };
 
@@ -74,20 +74,20 @@
             if (invocationExpression != null)
             {
                 var methodInfo = semanticModel.GetSymbolInfo(invocationExpression, cancellationToken).Symbol as IMethodSymbol;
-	            if (methodInfo?.ReturnType != null && methodInfo.ReturnType.IsReferenceType)
-	            {
-		            if (methodInfo.ReturnType.AllInterfaces != null)
-		            {
-			            foreach (var @interface in methodInfo.ReturnType.AllInterfaces)
-			            {
-				            if (@interface.SpecialType == SpecialType.System_Collections_Generic_IEnumerator_T || @interface.SpecialType == SpecialType.System_Collections_IEnumerator)
-				            {
-					            reportDiagnostic(Diagnostic.Create(ReferenceTypeEnumeratorRule, invocationExpression.GetLocation(), EmptyMessageArgs));
-					            HeapAllocationAnalyzerEventSource.Logger.EnumeratorAllocation(filePath);
-				            }
-			            }
-		            }
-	            }
+                if (methodInfo?.ReturnType != null && methodInfo.ReturnType.IsReferenceType)
+                {
+                    if (methodInfo.ReturnType.AllInterfaces != null)
+                    {
+                        foreach (var @interface in methodInfo.ReturnType.AllInterfaces)
+                        {
+                            if (@interface.SpecialType == SpecialType.System_Collections_Generic_IEnumerator_T || @interface.SpecialType == SpecialType.System_Collections_IEnumerator)
+                            {
+                                reportDiagnostic(Diagnostic.Create(ReferenceTypeEnumeratorRule, invocationExpression.GetLocation(), EmptyMessageArgs));
+                                HeapAllocationAnalyzerEventSource.Logger.EnumeratorAllocation(filePath);
+                            }
+                        }
+                    }
+                }
             }
         }
     }

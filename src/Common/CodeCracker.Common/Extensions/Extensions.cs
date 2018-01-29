@@ -5,7 +5,7 @@ namespace CodeCracker
 {
     public static class Extensions
     {
-        public static string ToDiagnosticId(this DiagnosticId diagnosticId) => $"CC{(int)diagnosticId :D4}";
+        public static string ToDiagnosticId(this DiagnosticId diagnosticId) => $"PAA{(int)diagnosticId:D4}";
 
         public static IDictionary<K, V> AddRange<K, V>(this IDictionary<K, V> dictionary, IDictionary<K, V> newValues)
         {
