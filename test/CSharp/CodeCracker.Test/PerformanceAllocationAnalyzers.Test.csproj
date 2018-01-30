@@ -152,17 +152,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Common\CodeCracker.Common\CodeCracker.Common.csproj">
+    <ProjectReference Include="..\..\..\src\Common\CodeCracker.Common\PerformanceAllocationAnalyzers.Common.csproj">
       <Project>{753d4757-fcba-43ba-b1be-89201acda192}</Project>
-      <Name>CodeCracker.Common</Name>
+      <Name>PerformanceAllocationAnalyzers.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\src\CSharp\CodeCracker\CodeCracker.csproj">
+    <ProjectReference Include="..\..\..\src\CSharp\CodeCracker\PerformanceAllocationAnalyzers.csproj">
       <Project>{ff1097fb-a890-461b-979e-064697891b96}</Project>
-      <Name>CodeCracker</Name>
+      <Name>PerformanceAllocationAnalyzers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Common\CodeCracker.Test.Common\CodeCracker.Test.Common.csproj">
+    <ProjectReference Include="..\..\Common\CodeCracker.Test.Common\PerformanceAllocationAnalyzers.Test.Common.csproj">
       <Project>{1cd1a3ee-28ce-404b-a59e-aeacf762d938}</Project>
-      <Name>CodeCracker.Test.Common</Name>
+      <Name>PerformanceAllocationAnalyzers.Test.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

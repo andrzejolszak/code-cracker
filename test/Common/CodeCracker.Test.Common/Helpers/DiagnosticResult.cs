@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using System;
 
-namespace CodeCracker.Test
+namespace PerformanceAllocationAnalyzers.Test
 {
     /// <summary>
     /// Location where the diagnostic appears, as determined by path, line number, and column number.

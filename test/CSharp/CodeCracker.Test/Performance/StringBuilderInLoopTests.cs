@@ -1,9 +1,9 @@
-﻿using CodeCracker.CSharp.Usage;
+﻿using PerformanceAllocationAnalyzers.CSharp.Usage;
 using Microsoft.CodeAnalysis;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CodeCracker.Test.CSharp.Performance
+namespace PerformanceAllocationAnalyzers.Test.CSharp.Performance
 {
     public class StringBuilderInLoopTests : CodeFixVerifier<StringBuilderInLoopAnalyzer, StringBuilderInLoopCodeFixProvider>
     {

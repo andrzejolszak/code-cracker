@@ -6,7 +6,7 @@ using System.Collections.Immutable;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CodeCracker.Test
+namespace PerformanceAllocationAnalyzers.Test
 {
     public class FixAllDiagnosticProvider : FixAllContext.DiagnosticProvider
     {

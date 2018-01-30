@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
-namespace CodeCracker.CSharp.Usage
+namespace PerformanceAllocationAnalyzers.CSharp.Usage
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class StringBuilderInLoopAnalyzer : DiagnosticAnalyzer

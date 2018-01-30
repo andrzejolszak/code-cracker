@@ -1,9 +1,9 @@
-﻿using Microsoft.CodeAnalysis;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CodeAnalysis;
 
-namespace CodeCracker
+namespace PerformanceAllocationAnalyzers
 {
     public static partial class AnalyzerExtensions
     {
@@ -121,6 +121,7 @@ namespace CodeCracker
 
             return result;
         }
+
         public static IEnumerable<SyntaxToken> EnsureProtectedBeforeInternal(this IEnumerable<SyntaxToken> modifiers) => modifiers.OrderByDescending(token => token.RawKind);
 
         public static string GetFullName(this ISymbol symbol, bool addGlobal = true)
@@ -158,12 +159,15 @@ namespace CodeCracker
             {
                 case Accessibility.Private:
                     return otherAccessibility;
+
                 case Accessibility.ProtectedAndInternal:
                 case Accessibility.Protected:
                 case Accessibility.Internal:
                     return Accessibility.ProtectedAndInternal;
+
                 case Accessibility.Public:
                     return Accessibility.Public;
+
                 default:
                     throw new NotSupportedException();
             }
@@ -188,6 +192,7 @@ namespace CodeCracker
                 case SpecialType.System_Double:
                 case SpecialType.System_Single:
                     return true;
+
                 default:
                     return false;
             }

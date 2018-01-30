@@ -1,13 +1,12 @@
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using System.Collections.Immutable;
-using System.Linq;
-using System;
-using System.Collections.Generic;
 
-namespace CodeCracker.CSharp.Style
+namespace PerformanceAllocationAnalyzers.CSharp.Style
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class ForInArrayAnalyzer : DiagnosticAnalyzer
@@ -106,9 +105,9 @@ namespace CodeCracker.CSharp.Style
                                   select postfixUnaryExpression).ToList();
             if (postfixUnaries.Any()) return true;
             var prefixUnaries = (from postfixUnaryExpression in forDescendants.OfType<PrefixUnaryExpressionSyntax>()
-                                  let operandSymbol = semanticModel.GetSymbolInfo(postfixUnaryExpression.Operand).Symbol
-                                  where iterableSymbols.Any(i => i.Equals(operandSymbol))
-                                  select postfixUnaryExpression).ToList();
+                                 let operandSymbol = semanticModel.GetSymbolInfo(postfixUnaryExpression.Operand).Symbol
+                                 where iterableSymbols.Any(i => i.Equals(operandSymbol))
+                                 select postfixUnaryExpression).ToList();
             if (prefixUnaries.Any()) return true;
             return false;
         }

@@ -14,7 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CodeCracker.Test
+namespace PerformanceAllocationAnalyzers.Test
 {
     /// <summary>
     /// Superclass of all Unit tests made for diagnostics with codefixes.

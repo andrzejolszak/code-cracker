@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CodeCracker.CSharp.Performance
+namespace PerformanceAllocationAnalyzers.CSharp.Performance
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(UseStaticRegexIsMatchCodeFixProvider)), Shared]
     public class UseStaticRegexIsMatchCodeFixProvider : CodeFixProvider

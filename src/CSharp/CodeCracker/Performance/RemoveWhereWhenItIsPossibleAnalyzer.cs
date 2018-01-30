@@ -1,12 +1,12 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
 
-namespace CodeCracker.CSharp.Performance
+namespace PerformanceAllocationAnalyzers.CSharp.Performance
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class RemoveWhereWhenItIsPossibleAnalyzer : DiagnosticAnalyzer
@@ -14,19 +14,7 @@ namespace CodeCracker.CSharp.Performance
         internal const string Title = "You should remove the 'Where' invocation when it is possible.";
         internal const string MessageFormat = "You can remove 'Where' moving the predicate to '{0}'.";
         internal const string Category = SupportedCategories.Performance;
-        const string Description = "When a linq operator support a predicate parameter it should be used instead of "
-            + "using 'Where' followed by the operator";
 
-        static readonly string[] supportedMethods = new[] {
-            "First",
-            "FirstOrDefault",
-            "Last",
-            "LastOrDefault",
-            "Any",
-            "Single",
-            "SingleOrDefault",
-            "Count"
-        };
         internal static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId.RemoveWhereWhenItIsPossible.ToDiagnosticId(),
             Title,
@@ -36,6 +24,20 @@ namespace CodeCracker.CSharp.Performance
             isEnabledByDefault: true,
             description: Description,
             helpLinkUri: HelpLink.ForDiagnostic(DiagnosticId.RemoveWhereWhenItIsPossible));
+
+        private const string Description = "When a linq operator support a predicate parameter it should be used instead of "
+                    + "using 'Where' followed by the operator";
+
+        private static readonly string[] supportedMethods = new[] {
+            "First",
+            "FirstOrDefault",
+            "Last",
+            "LastOrDefault",
+            "Any",
+            "Single",
+            "SingleOrDefault",
+            "Count"
+        };
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 

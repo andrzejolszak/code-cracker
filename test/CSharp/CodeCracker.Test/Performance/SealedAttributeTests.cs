@@ -1,9 +1,9 @@
-﻿using CodeCracker.CSharp.Performance;
+﻿using PerformanceAllocationAnalyzers.CSharp.Performance;
 using Microsoft.CodeAnalysis;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CodeCracker.Test.CSharp.Performance
+namespace PerformanceAllocationAnalyzers.Test.CSharp.Performance
 {
     public class SealedAttributeTests : CodeFixVerifier<SealedAttributeAnalyzer, SealedAttributeCodeFixProvider>
     {

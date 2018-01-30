@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="CodeCracker.Vsix..5b99e64c-1418-4a06-990c-fd4cf01f4f63" Version="1.1.0" Language="en-US" Publisher="Code Cracker"/>
-    <DisplayName>Code Cracker for C#</DisplayName>
+    <Identity Id="PerformanceAllocationAnalyzers.Vsix..5b99e64c-1418-4a06-990c-fd4cf01f4f64" Version="0.9.0" Language="en-US" Publisher="PerformanceAllocationAnalyzers" />
+    <DisplayName>PerformanceAllocationAnalyzers for C#</DisplayName>
     <Description xml:space="preserve">An analyzer library for C# that uses Roslyn to produce refactorings, code analysis, and other niceties.
 Check the official project site on code-cracker.github.io.
 Build status Nuget count Nuget downloads Issues open
@@ -22,8 +22,8 @@ This is a community project, free and open source. Everyone is invited to contri
     <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5.2,)" />
   </Dependencies>
   <Assets>
-    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="CodeCracker" Path="|CodeCracker|"/>
-    <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="CodeCracker" Path="|CodeCracker|"/>
+    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="PerformanceAllocationAnalyzers" Path="|PerformanceAllocationAnalyzers|" />
+    <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="PerformanceAllocationAnalyzers" Path="|PerformanceAllocationAnalyzers|" />
   </Assets>
   <Prerequisites>
     <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[14.0,16.0)" DisplayName="Visual Studio core editor" />

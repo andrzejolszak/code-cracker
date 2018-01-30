@@ -1,14 +1,14 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CodeActions;
-using Microsoft.CodeAnalysis.CodeFixes;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Composition;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CodeActions;
+using Microsoft.CodeAnalysis.CodeFixes;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace CodeCracker.CSharp.Performance
+namespace PerformanceAllocationAnalyzers.CSharp.Performance
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(EmptyFinalizerCodeFixProvider)), Shared]
     public class EmptyFinalizerCodeFixProvider : CodeFixProvider

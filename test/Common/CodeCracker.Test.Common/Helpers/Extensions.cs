@@ -1,4 +1,4 @@
-﻿namespace CodeCracker.Test
+﻿namespace PerformanceAllocationAnalyzers.Test
 {
     public static class Extensions
     {

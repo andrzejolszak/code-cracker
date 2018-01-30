@@ -1,4 +1,4 @@
-﻿namespace CodeCracker
+﻿namespace PerformanceAllocationAnalyzers
 {
     /// <summary>
     /// Used to indicate what can be said about the initialization

@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using System.Collections.Immutable;
 
-namespace CodeCracker.CSharp.Performance
+namespace PerformanceAllocationAnalyzers.CSharp.Performance
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class UseStaticRegexIsMatchAnalyzer : DiagnosticAnalyzer

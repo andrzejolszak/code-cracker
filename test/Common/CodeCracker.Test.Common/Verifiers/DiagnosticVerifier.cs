@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CodeCracker.Test
+namespace PerformanceAllocationAnalyzers.Test
 {
     /// <summary>
     /// Generic superclass of all Unit Tests for DiagnosticAnalyzers

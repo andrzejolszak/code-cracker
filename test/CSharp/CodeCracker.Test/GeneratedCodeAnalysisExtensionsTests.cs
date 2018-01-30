@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using Xunit;
 
-namespace CodeCracker.Test.CSharp
+namespace PerformanceAllocationAnalyzers.Test.CSharp
 {
     public class GeneratedCodeAnalysisExtensionsTests
     {

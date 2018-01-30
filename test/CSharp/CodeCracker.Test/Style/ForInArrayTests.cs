@@ -1,10 +1,10 @@
-﻿using CodeCracker.CSharp.Style;
+﻿using PerformanceAllocationAnalyzers.CSharp.Style;
 using Microsoft.CodeAnalysis;
 using System.Threading.Tasks;
 using Xunit;
 using System;
 
-namespace CodeCracker.Test.CSharp.Style
+namespace PerformanceAllocationAnalyzers.Test.CSharp.Style
 {
     public class ForInArrayTests : CodeFixVerifier<ForInArrayAnalyzer, ForInArrayCodeFixProvider>
     {

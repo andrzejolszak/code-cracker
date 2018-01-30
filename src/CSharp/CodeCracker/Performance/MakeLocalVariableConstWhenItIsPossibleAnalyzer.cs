@@ -1,11 +1,11 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Collections.Immutable;
+using System.Linq;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using System.Collections.Immutable;
-using System.Linq;
 
-namespace CodeCracker.CSharp.Performance
+namespace PerformanceAllocationAnalyzers.CSharp.Performance
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class MakeLocalVariableConstWhenItIsPossibleAnalyzer :
@@ -14,7 +14,7 @@ namespace CodeCracker.CSharp.Performance
         internal const string Title = "Make Local Variable Constant.";
         internal const string MessageFormat = "This variable can be made const.";
         internal const string Category = SupportedCategories.Performance;
-        const string Description = "This variable is assigned a constant value and never changed it can be made 'const'";
+
         internal static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId.MakeLocalVariableConstWhenItIsPossible.ToDiagnosticId(),
             Title,
@@ -25,6 +25,7 @@ namespace CodeCracker.CSharp.Performance
             description: Description,
             helpLinkUri: HelpLink.ForDiagnostic(DiagnosticId.MakeLocalVariableConstWhenItIsPossible));
 
+        private const string Description = "This variable is assigned a constant value and never changed it can be made 'const'";
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 
         public override void Initialize(AnalysisContext context) =>
@@ -38,14 +39,14 @@ namespace CodeCracker.CSharp.Performance
 
             if (!localDeclaration.IsConst
                 && IsDeclarationConstFriendly(localDeclaration, semanticModel)
-                && AreVariablesOnlyWrittenInsideDeclaration(localDeclaration, semanticModel) )
+                && AreVariablesOnlyWrittenInsideDeclaration(localDeclaration, semanticModel))
             {
                 var diagnostic = Diagnostic.Create(Rule, localDeclaration.GetLocation());
                 context.ReportDiagnostic(diagnostic);
             }
         }
 
-        static bool IsDeclarationConstFriendly(LocalDeclarationStatementSyntax declaration, SemanticModel semanticModel)
+        private static bool IsDeclarationConstFriendly(LocalDeclarationStatementSyntax declaration, SemanticModel semanticModel)
         {
             // all variables could be const?
             foreach (var variable in declaration.Declaration.Variables)
@@ -74,7 +75,7 @@ namespace CodeCracker.CSharp.Performance
             return true;
         }
 
-        static bool AreVariablesOnlyWrittenInsideDeclaration(LocalDeclarationStatementSyntax declaration, SemanticModel semanticModel)
+        private static bool AreVariablesOnlyWrittenInsideDeclaration(LocalDeclarationStatementSyntax declaration, SemanticModel semanticModel)
         {
             var dfa = semanticModel.AnalyzeDataFlow(declaration);
             var symbols = from variable in declaration.Declaration.Variables

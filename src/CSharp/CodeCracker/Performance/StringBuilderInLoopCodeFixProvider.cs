@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CodeCracker.CSharp.Usage
+namespace PerformanceAllocationAnalyzers.CSharp.Usage
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(StringBuilderInLoopCodeFixProvider)), Shared]
     public class StringBuilderInLoopCodeFixProvider : CodeFixProvider

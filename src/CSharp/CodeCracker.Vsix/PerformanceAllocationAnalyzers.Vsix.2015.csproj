@@ -53,9 +53,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CodeCracker\CodeCracker.csproj">
+    <ProjectReference Include="..\CodeCracker\PerformanceAllocationAnalyzers.csproj">
       <Project>{FF1097FB-A890-461B-979E-064697891B96}</Project>
-      <Name>CodeCracker</Name>
+      <Name>PerformanceAllocationAnalyzers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

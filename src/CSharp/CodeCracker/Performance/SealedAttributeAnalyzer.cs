@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 using System;
 using System.Collections.Immutable;
 
-namespace CodeCracker.CSharp.Performance
+namespace PerformanceAllocationAnalyzers.CSharp.Performance
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class SealedAttributeAnalyzer : DiagnosticAnalyzer

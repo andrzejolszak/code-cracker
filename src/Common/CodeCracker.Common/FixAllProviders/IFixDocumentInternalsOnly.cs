@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CodeCracker.FixAllProviders
+namespace PerformanceAllocationAnalyzers.FixAllProviders
 {
     /// <summary>
     /// This interface must be implemented by the associated CodeFixProvider. The CodeFixProvider must operate on a single document and

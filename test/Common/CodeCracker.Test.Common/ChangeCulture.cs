@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Threading;
 
-namespace CodeCracker.Test
+namespace PerformanceAllocationAnalyzers.Test
 {
     public class ChangeCulture : IDisposable
     {

@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using System.Linq;
 
-namespace CodeCracker
+namespace PerformanceAllocationAnalyzers
 {
     public static class CSharpGeneratedCodeAnalysisExtensions
     {

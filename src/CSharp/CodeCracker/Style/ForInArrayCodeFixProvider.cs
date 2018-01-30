@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CodeCracker.CSharp.Style
+namespace PerformanceAllocationAnalyzers.CSharp.Style
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(ForInArrayCodeFixProvider)), Shared]
     public class ForInArrayCodeFixProvider : CodeFixProvider

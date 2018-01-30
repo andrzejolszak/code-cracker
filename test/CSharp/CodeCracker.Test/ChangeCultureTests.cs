@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace CodeCracker.Test.CSharp
+namespace PerformanceAllocationAnalyzers.Test.CSharp
 {
     public class ChangeCultureTests
     {

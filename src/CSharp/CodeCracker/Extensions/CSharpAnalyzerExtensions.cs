@@ -1,13 +1,13 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Formatting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace CodeCracker
+namespace PerformanceAllocationAnalyzers
 {
     public static class CSharpAnalyzerExtensions
     {
@@ -20,12 +20,17 @@ namespace CodeCracker
 
         public static void RegisterSymbolAction(this AnalysisContext context, LanguageVersion greaterOrEqualThanLanguageVersion, Action<SymbolAnalysisContext> registrationAction, params SymbolKind[] symbolKinds) =>
             context.RegisterSymbolAction(compilationContext => compilationContext.RunIfCSharpVersionOrGreater(greaterOrEqualThanLanguageVersion, () => registrationAction?.Invoke(compilationContext)), symbolKinds);
+
 #pragma warning disable RS1012
+
         private static void RunIfCSharpVersionOrGreater(this CompilationStartAnalysisContext context, LanguageVersion greaterOrEqualThanLanguageVersion, Action action) =>
             context.Compilation.RunIfCSharpVersionOrGreater(action, greaterOrEqualThanLanguageVersion);
+
 #pragma warning restore RS1012
+
         private static void RunIfCSharpVersionOrGreater(this Compilation compilation, Action action, LanguageVersion greaterOrEqualThanLanguageVersion) =>
             (compilation as CSharpCompilation)?.LanguageVersion.RunIfCSharpVersionGreater(action, greaterOrEqualThanLanguageVersion);
+
         private static void RunIfCSharpVersionOrGreater(this SymbolAnalysisContext context, LanguageVersion greaterOrEqualThanLanguageVersion, Action action) =>
             context.Compilation.RunIfCSharpVersionOrGreater(action, greaterOrEqualThanLanguageVersion);
 
@@ -40,10 +45,14 @@ namespace CodeCracker
 
         public static void RegisterCompilationStartActionForVersionLower(this AnalysisContext context, LanguageVersion lowerThanLanguageVersion, Action<CompilationStartAnalysisContext> registrationAction) =>
             context.RegisterCompilationStartAction(compilationContext => compilationContext.RunIfCSharpVersionLower(lowerThanLanguageVersion, () => registrationAction?.Invoke(compilationContext)));
+
 #pragma warning disable RS1012
+
         private static void RunIfCSharpVersionLower(this CompilationStartAnalysisContext context, LanguageVersion lowerThanLanguageVersion, Action action) =>
             context.Compilation.RunIfCSharpVersionLower(action, lowerThanLanguageVersion);
+
 #pragma warning restore RS1012
+
         private static void RunIfCSharpVersionLower(this Compilation compilation, Action action, LanguageVersion lowerThanLanguageVersion) =>
             (compilation as CSharpCompilation)?.LanguageVersion.RunIfCSharpVersionLower(action, lowerThanLanguageVersion);
 
@@ -171,7 +180,6 @@ namespace CodeCracker
                 currentNode = currentNode.Parent;
             }
             return null;
-
         }
 
         public static StatementSyntax FirstAncestorOrSelfThatIsAStatement(this SyntaxNode node)
@@ -307,13 +315,16 @@ namespace CodeCracker
                 case SyntaxKind.IdentifierName:
                     result = ((IdentifierNameSyntax)node).Identifier.ValueText;
                     break;
+
                 case SyntaxKind.QualifiedName:
                     result = GetLastIdentifierValueText(((QualifiedNameSyntax)node).Right);
                     break;
+
                 case SyntaxKind.GenericName:
                     var genericNameSyntax = ((GenericNameSyntax)node);
                     result = $"{genericNameSyntax.Identifier.ValueText}{genericNameSyntax.TypeArgumentList.ToString()}";
                     break;
+
                 case SyntaxKind.AliasQualifiedName:
                     result = ((AliasQualifiedNameSyntax)node).Name.Identifier.ValueText;
                     break;
@@ -330,9 +341,11 @@ namespace CodeCracker
                 case SyntaxKind.MethodDeclaration:
                     result = ((MethodDeclarationSyntax)method).Identifier;
                     break;
+
                 case SyntaxKind.ConstructorDeclaration:
                     result = ((ConstructorDeclarationSyntax)method).Identifier;
                     break;
+
                 case SyntaxKind.DestructorDeclaration:
                     result = ((DestructorDeclarationSyntax)method).Identifier;
                     break;
@@ -350,45 +363,59 @@ namespace CodeCracker
                 case SyntaxKind.ClassDeclaration:
                     result = ((ClassDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
+
                 case SyntaxKind.StructDeclaration:
                     result = ((StructDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
+
                 case SyntaxKind.InterfaceDeclaration:
                     result = ((InterfaceDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
+
                 case SyntaxKind.EnumDeclaration:
                     result = ((EnumDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
+
                 case SyntaxKind.DelegateDeclaration:
                     result = ((DelegateDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
+
                 case SyntaxKind.FieldDeclaration:
                     result = ((FieldDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
+
                 case SyntaxKind.EventFieldDeclaration:
                     result = ((EventFieldDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
+
                 case SyntaxKind.MethodDeclaration:
                     result = ((MethodDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
+
                 case SyntaxKind.OperatorDeclaration:
                     result = ((OperatorDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
+
                 case SyntaxKind.ConversionOperatorDeclaration:
                     result = ((ConversionOperatorDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
+
                 case SyntaxKind.ConstructorDeclaration:
                     result = ((ConstructorDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
+
                 case SyntaxKind.DestructorDeclaration:
                     result = ((DestructorDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
+
                 case SyntaxKind.PropertyDeclaration:
                     result = ((PropertyDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
+
                 case SyntaxKind.IndexerDeclaration:
                     result = ((IndexerDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
+
                 case SyntaxKind.EventDeclaration:
                     result = ((EventDeclarationSyntax)declaration).WithModifiers(newModifiers);
                     break;
@@ -409,13 +436,16 @@ namespace CodeCracker
                 case SyntaxKind.EnumDeclaration:
                     result = ((BaseTypeDeclarationSyntax)memberDeclaration).Modifiers;
                     break;
+
                 case SyntaxKind.DelegateDeclaration:
                     result = ((DelegateDeclarationSyntax)memberDeclaration).Modifiers;
                     break;
+
                 case SyntaxKind.FieldDeclaration:
                 case SyntaxKind.EventFieldDeclaration:
                     result = ((BaseFieldDeclarationSyntax)memberDeclaration).Modifiers;
                     break;
+
                 case SyntaxKind.MethodDeclaration:
                 case SyntaxKind.OperatorDeclaration:
                 case SyntaxKind.ConversionOperatorDeclaration:
@@ -423,6 +453,7 @@ namespace CodeCracker
                 case SyntaxKind.DestructorDeclaration:
                     result = ((BaseMethodDeclarationSyntax)memberDeclaration).Modifiers;
                     break;
+
                 case SyntaxKind.PropertyDeclaration:
                 case SyntaxKind.IndexerDeclaration:
                 case SyntaxKind.EventDeclaration:
@@ -519,7 +550,6 @@ namespace CodeCracker
             }
             return null;
         }
-
 
         /// <summary>
         /// Determines whether the specified symbol is a read only field and initialized in the specified context.
@@ -698,27 +728,36 @@ namespace CodeCracker
         private static readonly SyntaxTokenList publicToken = SyntaxFactory.TokenList(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
         private static readonly SyntaxTokenList privateToken = SyntaxFactory.TokenList(SyntaxFactory.Token(SyntaxKind.PrivateKeyword));
         private static readonly SyntaxTokenList protectedToken = SyntaxFactory.TokenList(SyntaxFactory.Token(SyntaxKind.ProtectedKeyword));
+
         private static readonly SyntaxTokenList protectedInternalToken = SyntaxFactory.TokenList(
             SyntaxFactory.Token(SyntaxKind.ProtectedKeyword), SyntaxFactory.Token(SyntaxKind.InternalKeyword));
+
         private static readonly SyntaxTokenList internalToken = SyntaxFactory.TokenList(SyntaxFactory.Token(SyntaxKind.InternalKeyword));
+
         public static SyntaxTokenList GetTokens(this Accessibility accessibility)
         {
             switch (accessibility)
             {
                 case Accessibility.Public:
                     return publicToken;
+
                 case Accessibility.Private:
                     return privateToken;
+
                 case Accessibility.Protected:
                     return protectedToken;
+
                 case Accessibility.Internal:
                     return internalToken;
+
                 case Accessibility.ProtectedAndInternal:
                     return protectedInternalToken;
+
                 default:
                     throw new NotSupportedException();
             }
         }
+
         public static TypeDeclarationSyntax WithMembers(this TypeDeclarationSyntax typeDeclarationSyntax, SyntaxList<MemberDeclarationSyntax> members)
         {
             if (typeDeclarationSyntax is ClassDeclarationSyntax)
@@ -757,6 +796,7 @@ namespace CodeCracker
                         case SpecialType.System_Double:
                         case SpecialType.System_Decimal:
                             return true;
+
                         default:
                             return false;
                     }
@@ -774,6 +814,7 @@ namespace CodeCracker
                         case SpecialType.System_Double:
                         case SpecialType.System_Decimal:
                             return true;
+
                         default:
                             return false;
                     }
@@ -787,6 +828,7 @@ namespace CodeCracker
                         case SpecialType.System_Double:
                         case SpecialType.System_Decimal:
                             return true;
+
                         default:
                             return false;
                     }
@@ -801,6 +843,7 @@ namespace CodeCracker
                         case SpecialType.System_Double:
                         case SpecialType.System_Decimal:
                             return true;
+
                         default:
                             return false;
                     }
@@ -813,6 +856,7 @@ namespace CodeCracker
                         case SpecialType.System_Double:
                         case SpecialType.System_Decimal:
                             return true;
+
                         default:
                             return false;
                     }
@@ -826,6 +870,7 @@ namespace CodeCracker
                         case SpecialType.System_Double:
                         case SpecialType.System_Decimal:
                             return true;
+
                         default:
                             return false;
                     }
@@ -837,6 +882,7 @@ namespace CodeCracker
                         case SpecialType.System_Double:
                         case SpecialType.System_Decimal:
                             return true;
+
                         default:
                             return false;
                     }
@@ -848,6 +894,7 @@ namespace CodeCracker
                         case SpecialType.System_Double:
                         case SpecialType.System_Decimal:
                             return true;
+
                         default:
                             return false;
                     }
@@ -864,6 +911,7 @@ namespace CodeCracker
                         case SpecialType.System_Double:
                         case SpecialType.System_Decimal:
                             return true;
+
                         default:
                             return false;
                     }
@@ -873,6 +921,7 @@ namespace CodeCracker
                         case SpecialType.System_Single:
                         case SpecialType.System_Double:
                             return true;
+
                         default:
                             return false;
                     }

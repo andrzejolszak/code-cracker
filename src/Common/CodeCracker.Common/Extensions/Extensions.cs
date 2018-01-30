@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CodeCracker
+namespace PerformanceAllocationAnalyzers
 {
     public static class Extensions
     {

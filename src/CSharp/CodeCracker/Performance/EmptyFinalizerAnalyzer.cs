@@ -1,11 +1,11 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Collections.Immutable;
+using System.Linq;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using System.Collections.Immutable;
-using System.Linq;
 
-namespace CodeCracker.CSharp.Performance
+namespace PerformanceAllocationAnalyzers.CSharp.Performance
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class EmptyFinalizerAnalyzer : DiagnosticAnalyzer
@@ -13,9 +13,6 @@ namespace CodeCracker.CSharp.Performance
         internal const string Title = "Remove Empty Finalizers";
         internal const string MessageFormat = "Remove Empty Finalizers";
         internal const string Category = SupportedCategories.Performance;
-        const string Description = "An empty finalizer will stop your object from being collected immediately by the "
-            + "Garbage Collector when no longer used."
-            + "It will instead be placed in the finalizer queue needlessly using resources.";
 
         internal static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId.EmptyFinalizer.ToDiagnosticId(),
@@ -27,6 +24,10 @@ namespace CodeCracker.CSharp.Performance
             customTags: WellKnownDiagnosticTags.Unnecessary,
             description: Description,
             helpLinkUri: HelpLink.ForDiagnostic(DiagnosticId.EmptyFinalizer));
+
+        private const string Description = "An empty finalizer will stop your object from being collected immediately by the "
+                    + "Garbage Collector when no longer used."
+            + "It will instead be placed in the finalizer queue needlessly using resources.";
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CodeCracker.CSharp.Performance
+namespace PerformanceAllocationAnalyzers.CSharp.Performance
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(RemoveWhereWhenItIsPossibleCodeFixProvider)), Shared]
     public class RemoveWhereWhenItIsPossibleCodeFixProvider : CodeFixProvider

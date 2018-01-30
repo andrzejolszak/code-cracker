@@ -1,4 +1,4 @@
-﻿namespace CodeCracker
+﻿namespace PerformanceAllocationAnalyzers
 {
     public static class SupportedCategories
     {

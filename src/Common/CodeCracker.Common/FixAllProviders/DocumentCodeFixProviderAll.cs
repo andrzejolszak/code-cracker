@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CodeCracker.FixAllProviders
+namespace PerformanceAllocationAnalyzers.FixAllProviders
 {
 
     public sealed class DocumentCodeFixProviderAll : FixAllProvider

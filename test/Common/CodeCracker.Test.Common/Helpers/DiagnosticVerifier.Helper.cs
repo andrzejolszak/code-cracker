@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.Simplification;
 using Microsoft.CodeAnalysis.Text;
 using Newtonsoft.Json;
 
-namespace CodeCracker.Test
+namespace PerformanceAllocationAnalyzers.Test
 {
     /// <summary>
     /// Class for turning strings into documents and getting the diagnostics on them
