@@ -35,36 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Allocations\CallSiteImplicitAllocationAnalyzer.cs" />
-    <Compile Include="Allocations\ConcatenationAllocationAnalyzer.cs" />
-    <Compile Include="Allocations\DisplayClassAllocationAnalyzer.cs" />
-    <Compile Include="Allocations\EnumeratorAllocationAnalyzer.cs" />
-    <Compile Include="Allocations\ExplicitAllocationAnalyzer.cs" />
-    <Compile Include="Allocations\HeapAllocationAnalyzerEventSource.cs" />
-    <Compile Include="Allocations\TypeConversionAllocationAnalyzer.cs" />
-    <Compile Include="Extensions\CSharpAnalyzerExtensions.cs" />
-    <Compile Include="Extensions\CSharpGeneratedCodeAnalysisExtensions.cs" />
-    <Compile Include="Extensions\InitializerState.cs" />
-    <Compile Include="Performance\UseStaticRegexIsMatchAnalyzer.cs" />
-    <Compile Include="Performance\StringBuilderInLoopCodeFixProvider.cs" />
-    <Compile Include="Performance\StringBuilderInLoopAnalyzer.cs" />
-    <Compile Include="Performance\UseStaticRegexIsMatchCodeFixProvider.cs" />
-    <Compile Include="Performance\EmptyFinalizerAnalyzer.cs" />
-    <Compile Include="Performance\EmptyFinalizerCodeFixProvider.cs" />
-    <Compile Include="Performance\MakeLocalVariableConstWhenItIsPossibleAnalyzer.cs" />
-    <Compile Include="Performance\MakeLocalVariableConstWhenItIsPossibleCodeFixProvider.cs" />
-    <Compile Include="Style\ForInArrayAnalyzer.cs" />
-    <Compile Include="Style\ForInArrayCodeFixProvider.cs" />
-    <Compile Include="Performance\RemoveWhereWhenItIsPossibleAnalyzer.cs" />
-    <Compile Include="Performance\RemoveWhereWhenItIsPossibleCodeFixProvider.cs" />
-    <Compile Include="Performance\SealedAttributeAnalyzer.cs" />
-    <Compile Include="Performance\SealedAttributeCodeFixProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\..\Common\CodeCracker.Common\PerformanceAllocationAnalyzers.Common.csproj">
+      <Project>{753d4757-fcba-43ba-b1be-89201acda192}</Project>
+      <Name>PerformanceAllocationAnalyzers.Common</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Analyzer Include="..\..\..\packages\codecracker.CSharp.1.0.3\analyzers\dotnet\cs\CodeCracker.Common.dll" />
     <Analyzer Include="..\..\..\packages\codecracker.CSharp.1.0.3\analyzers\dotnet\cs\CodeCracker.CSharp.dll" />
@@ -110,12 +88,6 @@
     <Reference Include="System.Reflection.Metadata, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\System.Reflection.Metadata.1.2.0\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Common\CodeCracker.Common\PerformanceAllocationAnalyzers.Common.csproj">
-      <Project>{753d4757-fcba-43ba-b1be-89201acda192}</Project>
-      <Name>PerformanceAllocationAnalyzers.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>

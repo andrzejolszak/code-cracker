@@ -40,10 +40,9 @@ namespace PerformanceAllocationAnalyzers.Test
         /// <param name="language">The language the soruce classes are in</param>
         /// <param name="analyzer">The analyzer to be run on the sources</param>
         /// <param name="languageVersionCSharp">C# language version used for compiling the test project, required unless you inform the VB language version.</param>
-        /// <param name="languageVersionVB">VB language version used for compiling the test project, required unless you inform the C# language version.</param>
         /// <returns>An IEnumerable of Diagnostics that surfaced in teh source code, sorted by Location</returns>
-        private static async Task<Diagnostic[]> GetSortedDiagnosticsAsync(string[] sources, string language, DiagnosticAnalyzer analyzer, LanguageVersion languageVersionCSharp, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion languageVersionVB) =>
-            await GetSortedDiagnosticsFromDocumentsAsync(analyzer, GetDocuments(sources, language, languageVersionCSharp, languageVersionVB)).ConfigureAwait(true);
+        private static async Task<Diagnostic[]> GetSortedDiagnosticsAsync(string[] sources, string language, DiagnosticAnalyzer analyzer, LanguageVersion languageVersionCSharp) =>
+            await GetSortedDiagnosticsFromDocumentsAsync(analyzer, GetDocuments(sources, language, languageVersionCSharp)).ConfigureAwait(true);
 
         /// <summary>
         /// Given an analyzer and a document to apply it to, run the analyzer and gather an array of diagnostics found in it.
@@ -107,9 +106,8 @@ namespace PerformanceAllocationAnalyzers.Test
         /// <param name="sources">Classes in the form of strings</param>
         /// <param name="language">The language the source code is in</param>
         /// <param name="languageVersionCSharp">C# language version used for compiling the test project, required unless you inform the VB language version.</param>
-        /// <param name="languageVersionVB">VB language version used for compiling the test project, required unless you inform the C# language version.</param>
         /// <returns>A Tuple containing the Documents produced from the sources and thier TextSpans if relevant</returns>
-        public static Document[] GetDocuments(string[] sources, string language, LanguageVersion languageVersionCSharp, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion languageVersionVB)
+        public static Document[] GetDocuments(string[] sources, string language, LanguageVersion languageVersionCSharp)
         {
             if (language != LanguageNames.CSharp && language != LanguageNames.VisualBasic)
                 throw new ArgumentException("Unsupported Language");
@@ -119,7 +117,7 @@ namespace PerformanceAllocationAnalyzers.Test
                 var fileName = language == LanguageNames.CSharp ? nameof(Test) + i + ".cs" : nameof(Test) + i + ".vb";
             }
 
-            var project = CreateProject(sources, language, languageVersionCSharp, languageVersionVB);
+            var project = CreateProject(sources, language, languageVersionCSharp);
             var documents = project.Documents.ToArray();
 
             if (sources.Length != documents.Length)
@@ -140,9 +138,8 @@ namespace PerformanceAllocationAnalyzers.Test
         /// <returns>A Document created from the source string</returns>
         public static Document CreateDocument(string source,
             string language,
-            LanguageVersion languageVersionCSharp,
-            Microsoft.CodeAnalysis.VisualBasic.LanguageVersion languageVersionVB) =>
-            CreateProject(new[] { source }, language, languageVersionCSharp, languageVersionVB).Documents.First();
+            LanguageVersion languageVersionCSharp) =>
+            CreateProject(new[] { source }, language, languageVersionCSharp).Documents.First();
 
         /// <summary>
         /// Create a project using the inputted strings as sources.
@@ -150,12 +147,10 @@ namespace PerformanceAllocationAnalyzers.Test
         /// <param name="sources">Classes in the form of strings</param>
         /// <param name="language">The language the source code is in</param>
         /// <param name="languageVersionCSharp">C# language version used for compiling the test project, required unless you inform the VB language version.</param>
-        /// <param name="languageVersionVB">VB language version used for compiling the test project, required unless you inform the C# language version.</param>
         /// <returns>A Project created out of the Douments created from the source strings</returns>
         public static Project CreateProject(string[] sources,
             string language,
-            LanguageVersion languageVersionCSharp,
-            Microsoft.CodeAnalysis.VisualBasic.LanguageVersion languageVersionVB)
+            LanguageVersion languageVersionCSharp)
         {
             var fileNamePrefix = DefaultFilePathPrefix;
             string fileExt;
@@ -167,8 +162,7 @@ namespace PerformanceAllocationAnalyzers.Test
             }
             else
             {
-                fileExt = VisualBasicDefaultExt;
-                parseOptions = new Microsoft.CodeAnalysis.VisualBasic.VisualBasicParseOptions(languageVersionVB);
+                throw new InvalidOperationException("Only C# is supported");
             }
 
             var projectId = ProjectId.CreateNewId(debugName: TestProjectName);
@@ -217,9 +211,9 @@ namespace PerformanceAllocationAnalyzers.Test
             return root.GetText().ToString();
         }
 
-        public static async Task<string> FormatSourceAsync(string language, string source, LanguageVersion languageVersionCSharp = LanguageVersion.CSharp6, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion languageVersionVB = Microsoft.CodeAnalysis.VisualBasic.LanguageVersion.VisualBasic14)
+        public static async Task<string> FormatSourceAsync(string language, string source, LanguageVersion languageVersionCSharp = LanguageVersion.CSharp6)
         {
-            var document = CreateDocument(source, language, languageVersionCSharp, languageVersionVB);
+            var document = CreateDocument(source, language, languageVersionCSharp);
             var newDoc = await Formatter.FormatAsync(document).ConfigureAwait(true);
             return (await newDoc.GetSyntaxRootAsync().ConfigureAwait(true)).ToFullString();
         }

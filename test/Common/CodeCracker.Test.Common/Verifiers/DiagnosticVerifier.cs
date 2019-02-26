@@ -1,10 +1,10 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.Diagnostics;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Diagnostics;
 using Xunit;
 
 namespace PerformanceAllocationAnalyzers.Test
@@ -30,15 +30,6 @@ namespace PerformanceAllocationAnalyzers.Test
         /// </summary>
         protected virtual DiagnosticAnalyzer GetDiagnosticAnalyzer() => null;
 
-        protected async Task VerifyBasicHasNoDiagnosticsAsync(string source, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion languageVersionVB = Microsoft.CodeAnalysis.VisualBasic.LanguageVersion.VisualBasic14) =>
-            await VerifyBasicDiagnosticAsync(source, new DiagnosticResult[] { }, languageVersionVB).ConfigureAwait(true);
-
-        protected async Task VerifyBasicHasNoDiagnosticsAsync(string source1, string source2, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion languageVersionVB = Microsoft.CodeAnalysis.VisualBasic.LanguageVersion.VisualBasic14) =>
-            await VerifyBasicDiagnosticAsync(new[] { source1, source2 }, new DiagnosticResult[] { }, languageVersionVB).ConfigureAwait(true);
-
-        protected async Task VerifyBasicHasNoDiagnosticsAsync(string[] sources, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion languageVersionVB = Microsoft.CodeAnalysis.VisualBasic.LanguageVersion.VisualBasic14) =>
-            await VerifyBasicDiagnosticAsync(sources, new DiagnosticResult[] { }, languageVersionVB).ConfigureAwait(true);
-
         protected async Task VerifyCSharpHasNoDiagnosticsAsync(string source, LanguageVersion languageVersion = LanguageVersion.CSharp6) =>
             await VerifyCSharpDiagnosticAsync(source, new DiagnosticResult[] { }, languageVersion).ConfigureAwait(true);
 
@@ -56,29 +47,13 @@ namespace PerformanceAllocationAnalyzers.Test
         /// <param name="expected"> DiagnosticResults that should appear after the analyzer is run on the source</param>
         /// <param name="languageVersion">The C# language version, defaults to the latest stable version.</param>
         protected async Task VerifyCSharpDiagnosticAsync(string source, DiagnosticResult[] expected, LanguageVersion languageVersion = LanguageVersion.CSharp6) =>
-            await VerifyDiagnosticsAsync(new[] { source }, LanguageNames.CSharp, GetDiagnosticAnalyzer(), expected, languageVersion, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion.VisualBasic14).ConfigureAwait(true);
+            await VerifyDiagnosticsAsync(new[] { source }, LanguageNames.CSharp, GetDiagnosticAnalyzer(), expected, languageVersion).ConfigureAwait(true);
 
         protected async Task VerifyCSharpDiagnosticAsync(string source, DiagnosticResult expected, LanguageVersion languageVersion = LanguageVersion.CSharp6) =>
-            await VerifyDiagnosticsAsync(new[] { source }, LanguageNames.CSharp, GetDiagnosticAnalyzer(), new[] { expected }, languageVersion, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion.VisualBasic14).ConfigureAwait(true);
+            await VerifyDiagnosticsAsync(new[] { source }, LanguageNames.CSharp, GetDiagnosticAnalyzer(), new[] { expected }, languageVersion).ConfigureAwait(true);
 
         protected async Task VerifyCSharpDiagnosticAsync(string source, DiagnosticResult expected1, DiagnosticResult expected2, LanguageVersion languageVersion = LanguageVersion.CSharp6) =>
-            await VerifyDiagnosticsAsync(new[] { source }, LanguageNames.CSharp, GetDiagnosticAnalyzer(), new[] { expected1, expected2 }, languageVersion, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion.VisualBasic14).ConfigureAwait(true);
-
-        /// <summary>
-        /// Called to test a VB DiagnosticAnalyzer when applied on the single inputted string as a source
-        /// Note: input a DiagnosticResult for each Diagnostic expected
-        /// </summary>
-        /// <param name="source">A class in the form of a string to run the analyzer on</param>
-        /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the source</param>
-        /// <param name="languageVersion">The VB language version, defaults to the latest stable version.</param>
-        protected async Task VerifyBasicDiagnosticAsync(string source, DiagnosticResult[] expected, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion languageVersion = Microsoft.CodeAnalysis.VisualBasic.LanguageVersion.VisualBasic14) =>
-            await VerifyDiagnosticsAsync(new[] { source }, LanguageNames.VisualBasic, GetDiagnosticAnalyzer(), expected, LanguageVersion.CSharp6, languageVersion).ConfigureAwait(true);
-
-        protected async Task VerifyBasicDiagnosticAsync(string source, DiagnosticResult expected, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion languageVersionVB = Microsoft.CodeAnalysis.VisualBasic.LanguageVersion.VisualBasic14) =>
-            await VerifyDiagnosticsAsync(new[] { source }, LanguageNames.VisualBasic, GetDiagnosticAnalyzer(), new[] { expected }, LanguageVersion.CSharp6, languageVersionVB).ConfigureAwait(true);
-
-        protected async Task VerifyBasicDiagnosticAsync(string source, DiagnosticResult expected1, DiagnosticResult expected2, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion languageVersionVB = Microsoft.CodeAnalysis.VisualBasic.LanguageVersion.VisualBasic14) =>
-            await VerifyDiagnosticsAsync(new[] { source }, LanguageNames.VisualBasic, GetDiagnosticAnalyzer(), new[] { expected1, expected2 }, LanguageVersion.CSharp6, languageVersionVB).ConfigureAwait(true);
+            await VerifyDiagnosticsAsync(new[] { source }, LanguageNames.CSharp, GetDiagnosticAnalyzer(), new[] { expected1, expected2 }, languageVersion).ConfigureAwait(true);
 
         /// <summary>
         /// Called to test a C# DiagnosticAnalyzer when applied on the inputted strings as a source
@@ -88,7 +63,7 @@ namespace PerformanceAllocationAnalyzers.Test
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the sources</param>
         /// <param name="languageVersion">The C# language version, defaults to the latest stable version.</param>
         protected async Task VerifyCSharpDiagnosticAsync(string[] sources, DiagnosticResult[] expected, LanguageVersion languageVersion = LanguageVersion.CSharp6) =>
-            await VerifyDiagnosticsAsync(sources, LanguageNames.CSharp, GetDiagnosticAnalyzer(), expected, languageVersion, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion.VisualBasic14).ConfigureAwait(true);
+            await VerifyDiagnosticsAsync(sources, LanguageNames.CSharp, GetDiagnosticAnalyzer(), expected, languageVersion).ConfigureAwait(true);
 
         /// <summary>
         /// Called to test a VB DiagnosticAnalyzer when applied on the inputted strings as a source
@@ -97,8 +72,8 @@ namespace PerformanceAllocationAnalyzers.Test
         /// <param name="sources">An array of strings to create source documents from to run the analyzers on</param>
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the sources</param>
         /// <param name="languageVersion">The VB language version, defaults to the latest stable version.</param>
-        protected async Task VerifyBasicDiagnosticAsync(string[] sources, DiagnosticResult[] expected, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion languageVersion = Microsoft.CodeAnalysis.VisualBasic.LanguageVersion.VisualBasic14) =>
-            await VerifyDiagnosticsAsync(sources, LanguageNames.VisualBasic, GetDiagnosticAnalyzer(), expected, LanguageVersion.CSharp6, languageVersion).ConfigureAwait(true);
+        protected async Task VerifyBasicDiagnosticAsync(string[] sources, DiagnosticResult[] expected) =>
+            await VerifyDiagnosticsAsync(sources, LanguageNames.VisualBasic, GetDiagnosticAnalyzer(), expected, LanguageVersion.CSharp6).ConfigureAwait(true);
 
         /// <summary>
         /// General method that gets a collection of actual diagnostics found in the source after the analyzer is run,
@@ -110,12 +85,11 @@ namespace PerformanceAllocationAnalyzers.Test
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the sources</param>
         /// <param name="languageVersionCSharp">The C# language version, default to latest.</param>
         /// <param name="languageVersionVB">The VB language version, default to latest.</param>
-        private async static Task VerifyDiagnosticsAsync(string[] sources, string language, DiagnosticAnalyzer analyzer, DiagnosticResult[] expected, LanguageVersion languageVersionCSharp, Microsoft.CodeAnalysis.VisualBasic.LanguageVersion languageVersionVB)
+        private async static Task VerifyDiagnosticsAsync(string[] sources, string language, DiagnosticAnalyzer analyzer, DiagnosticResult[] expected, LanguageVersion languageVersionCSharp)
         {
-            var diagnostics = await GetSortedDiagnosticsAsync(sources, language, analyzer, languageVersionCSharp, languageVersionVB).ConfigureAwait(true);
+            var diagnostics = await GetSortedDiagnosticsAsync(sources, language, analyzer, languageVersionCSharp).ConfigureAwait(true);
             VerifyDiagnosticResults(diagnostics, analyzer, expected);
         }
-
 
         /// <summary>
         /// Checks each of the actual Diagnostics found and compares them with the corresponding DiagnosticResult in the array of expected results.
