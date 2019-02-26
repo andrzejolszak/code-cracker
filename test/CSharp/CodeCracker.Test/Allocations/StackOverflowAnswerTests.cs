@@ -18,7 +18,7 @@ namespace ClrHeapAllocationsAnalyzer.Test
                     object box = new S();";
             var analyser = new ExplicitAllocationAnalyzer();
             var info = ProcessCode(analyser, @script, ImmutableArray.Create(SyntaxKind.ObjectCreationExpression, SyntaxKind.AnonymousObjectCreationExpression, SyntaxKind.ArrayInitializerExpression, SyntaxKind.CollectionInitializerExpression, SyntaxKind.ComplexElementInitializerExpression, SyntaxKind.ObjectInitializerExpression, SyntaxKind.ArrayCreationExpression, SyntaxKind.ImplicitArrayCreationExpression, SyntaxKind.LetClause));
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
             // Diagnostic: (2,34): info HeapAnalyzerExplicitNewObjectRule: Explicit new reference type allocation
             AssertEx.ContainsDiagnostic(info.Allocations, ExplicitAllocationAnalyzer.NewObjectRule.Id, line: 2, character: 34);
         }
@@ -31,7 +31,7 @@ namespace ClrHeapAllocationsAnalyzer.Test
                     System.ValueType box = new S();";
             var analyser = new ExplicitAllocationAnalyzer();
             var info = ProcessCode(analyser, @script, ImmutableArray.Create(SyntaxKind.ObjectCreationExpression, SyntaxKind.AnonymousObjectCreationExpression, SyntaxKind.ArrayInitializerExpression, SyntaxKind.CollectionInitializerExpression, SyntaxKind.ComplexElementInitializerExpression, SyntaxKind.ObjectInitializerExpression, SyntaxKind.ArrayCreationExpression, SyntaxKind.ImplicitArrayCreationExpression, SyntaxKind.LetClause));
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
             // Diagnostic: (2,44): info HeapAnalyzerExplicitNewObjectRule: Explicit new reference type allocation
             AssertEx.ContainsDiagnostic(info.Allocations, ExplicitAllocationAnalyzer.NewObjectRule.Id, line: 2, character: 44);
         }
@@ -54,7 +54,7 @@ namespace ClrHeapAllocationsAnalyzer.Test
                 SyntaxKind.ForEachStatement,
                 SyntaxKind.EqualsValueClause,
                 SyntaxKind.Argument));
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
             // Diagnostic: (2,35): warning HeapAnalyzerBoxingRule: Value type to reference type conversion causes boxing at call site (here), and unboxing at the callee-site. Consider using generics if applicable
             AssertEx.ContainsDiagnostic(info.Allocations, TypeConversionAllocationAnalyzer.ValueTypeToReferenceTypeConversionRule.Id, line: 2, character: 35);
         }
@@ -68,7 +68,7 @@ namespace ClrHeapAllocationsAnalyzer.Test
                 I box = new S();";
             var analyser = new ExplicitAllocationAnalyzer();
             var info = ProcessCode(analyser, @script, ImmutableArray.Create(SyntaxKind.ObjectCreationExpression, SyntaxKind.AnonymousObjectCreationExpression, SyntaxKind.ArrayInitializerExpression, SyntaxKind.CollectionInitializerExpression, SyntaxKind.ComplexElementInitializerExpression, SyntaxKind.ObjectInitializerExpression, SyntaxKind.ArrayCreationExpression, SyntaxKind.ImplicitArrayCreationExpression, SyntaxKind.LetClause));
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
             // Diagnostic: (3,25): info HeapAnalyzerExplicitNewObjectRule: Explicit new reference type allocation
             AssertEx.ContainsDiagnostic(info.Allocations, ExplicitAllocationAnalyzer.NewObjectRule.Id, line: 3, character: 25);
         }
@@ -122,7 +122,7 @@ namespace ClrHeapAllocationsAnalyzer.Test
                 E.A.GetHashCode();";
             var analyser = new CallSiteImplicitAllocationAnalyzer();
             var info = ProcessCode(analyser, @script, ImmutableArray.Create(SyntaxKind.InvocationExpression));
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
             // Diagnostic: (2,17): warning HeapAnalyzerValueTypeNonOverridenCallRule: Non-overriden virtual method call on a value type adds a boxing or constrained instruction
             AssertEx.ContainsDiagnostic(info.Allocations, CallSiteImplicitAllocationAnalyzer.ValueTypeNonOverridenCallRule.Id, line: 2, character: 17);
         }

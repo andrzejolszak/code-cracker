@@ -49,7 +49,7 @@ int[] intData = new[] { 123, 32, 4 };";
             var analyser = new ExplicitAllocationAnalyzer();
             var info = ProcessCode(analyser, sampleProgram, ImmutableArray.Create(SyntaxKind.ImplicitArrayCreationExpression));
 
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
             // Diagnostic: (3,17): info HeapAnalyzerImplicitNewArrayCreationRule: Implicit new array creation allocation
             AssertEx.ContainsDiagnostic(info.Allocations, id: ExplicitAllocationAnalyzer.ImplicitArrayCreationRule.Id, line: 3, character: 17);
         }
@@ -65,7 +65,7 @@ var temp = new { A = 123, Name = ""Test"", };";
             var analyser = new ExplicitAllocationAnalyzer();
             var info = ProcessCode(analyser, sampleProgram, ImmutableArray.Create(SyntaxKind.AnonymousObjectCreationExpression));
 
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
             // Diagnostic: (3,12): info HeapAnalyzerExplicitNewAnonymousObjectRule: Explicit new anonymous object allocation
             AssertEx.ContainsDiagnostic(info.Allocations, id: ExplicitAllocationAnalyzer.AnonymousNewObjectRule.Id, line: 3, character: 12);
         }
@@ -81,7 +81,7 @@ int[] intData = new int[] { 123, 32, 4 };";
             var analyser = new ExplicitAllocationAnalyzer();
             var info = ProcessCode(analyser, sampleProgram, ImmutableArray.Create(SyntaxKind.ArrayCreationExpression));
 
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
             // Diagnostic: (3,17): info HeapAnalyzerExplicitNewArrayRule: Implicit new array creation allocation
             AssertEx.ContainsDiagnostic(info.Allocations, id: ExplicitAllocationAnalyzer.NewArrayRule.Id, line: 3, character: 17);
         }
@@ -98,7 +98,7 @@ var noAllocation = new DateTime();";
             var analyser = new ExplicitAllocationAnalyzer();
             var info = ProcessCode(analyser, sampleProgram, ImmutableArray.Create(SyntaxKind.ObjectCreationExpression));
 
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
             // Diagnostic: (3,18): info HeapAnalyzerExplicitNewObjectRule: Explicit new reference type allocation
             AssertEx.ContainsDiagnostic(info.Allocations, id: ExplicitAllocationAnalyzer.NewObjectRule.Id, line: 3, character: 18);
         }

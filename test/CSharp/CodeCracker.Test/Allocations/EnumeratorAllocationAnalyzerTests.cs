@@ -75,7 +75,7 @@ foreach (var f in fx2) // NO Allocations
             var analyser = new EnumeratorAllocationAnalyzer();
             var info = ProcessCode(analyser, sampleProgram, ImmutableArray.Create(SyntaxKind.ForEachStatement, SyntaxKind.InvocationExpression));
 
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
             // Diagnostic: (11,16): warning HeapAnalyzerEnumeratorAllocationRule: Non-ValueType enumerator may result in an heap allocation
             AssertEx.ContainsDiagnostic(info.Allocations, id: EnumeratorAllocationAnalyzer.ReferenceTypeEnumeratorRule.Id, line: 11, character: 16);
         }
@@ -115,7 +115,7 @@ private IEnumerator<int> GetIEnumeratorViaIEnumerable()
             var expectedNodes = ImmutableArray.Create(SyntaxKind.InvocationExpression);
             var info = ProcessCode(analyser, sampleProgram, expectedNodes);
 
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
             // Diagnostic: (11,35): warning HeapAnalyzerEnumeratorAllocationRule: Non-ValueType enumerator may result in an heap allocation ***
             AssertEx.ContainsDiagnostic(info.Allocations, id: EnumeratorAllocationAnalyzer.ReferenceTypeEnumeratorRule.Id, line: 11, character: 35);
         }

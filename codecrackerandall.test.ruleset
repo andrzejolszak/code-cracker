@@ -2,4 +2,7 @@
 <RuleSet Name="CodeCrackerTestAndAllRules" ToolsVersion="14.0">
   <Include Path="codecrackerandall.ruleset" Action="Default" />
   <Include Path="codecracker.test.ruleset" Action="Default" />
+  <Rules AnalyzerId="xunit.analyzers" RuleNamespace="xunit.analyzers">
+    <Rule Id="xUnit1013" Action="Warning" />
+  </Rules>
 </RuleSet>

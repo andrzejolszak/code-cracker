@@ -116,7 +116,7 @@ public class MyObject
             var analyser = new TypeConversionAllocationAnalyzer();
             var info = ProcessCode(analyser, sampleProgram, ImmutableArray.Create(SyntaxKind.ReturnStatement));
 
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
 
             // Diagnostic: (7,38): warning HeapAnalyzerBoxingRule: Value type to reference type conversion causes boxing at call site (here), and unboxing at the callee-site. Consider using generics if applicable
             AssertEx.ContainsDiagnostic(info.Allocations, id: TypeConversionAllocationAnalyzer.ValueTypeToReferenceTypeConversionRule.Id, line: 8, character: 38);
@@ -152,7 +152,7 @@ public IEnumerable<int> GetItemsNoAllocation()
             var analyser = new TypeConversionAllocationAnalyzer();
             var info = ProcessCode(analyser, sampleProgram, ImmutableArray.Create(SyntaxKind.YieldReturnStatement));
 
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
 
             // Diagnostic: (14,18): warning HeapAnalyzerBoxingRule: Value type to reference type conversion causes boxing at call site (here), and unboxing at the callee-site. Consider using generics if applicable
             AssertEx.ContainsDiagnostic(info.Allocations, id: TypeConversionAllocationAnalyzer.ValueTypeToReferenceTypeConversionRule.Id, line: 14, character: 18);
@@ -262,7 +262,7 @@ for (int i = 0;;) // NO Allocation
                 SyntaxKind.EqualsValueClause,
                 SyntaxKind.Argument));
 
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
 
             // Diagnostic: (3,17): warning HeapAnalyzerBoxingRule: Value type to reference type conversion causes boxing at call site (here), and unboxing at the callee-site. Consider using generics if applicable
             AssertEx.ContainsDiagnostic(info.Allocations, id: TypeConversionAllocationAnalyzer.ValueTypeToReferenceTypeConversionRule.Id, line: 3, character: 17);
@@ -368,7 +368,7 @@ object test2 = true ? 0.ToString() : obj; // NO Allocation
             var analyser = new TypeConversionAllocationAnalyzer();
             var info = ProcessCode(analyser, sampleProgram, ImmutableArray.Create(SyntaxKind.ConditionalExpression));
 
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
 
             // Diagnostic: (4,23): warning HeapAnalyzerBoxingRule: Value type to reference type conversion causes boxing at call site (here), and unboxing at the callee-site. Consider using generics if applicable
             AssertEx.ContainsDiagnostic(info.Allocations, id: TypeConversionAllocationAnalyzer.ValueTypeToReferenceTypeConversionRule.Id, line: 4, character: 23);
@@ -387,13 +387,13 @@ var f2 = (object)""5""; // NO Allocation
             var analyser = new TypeConversionAllocationAnalyzer();
             var info = ProcessCode(analyser, sampleProgram, ImmutableArray.Create(SyntaxKind.CastExpression));
 
-            Assert.Equal(1, info.Allocations.Count);
+            Assert.Single(info.Allocations);
 
             // Diagnostic: (3,18): warning HeapAnalyzerBoxingRule: Value type to reference type conversion causes boxing at call site (here), and unboxing at the callee-site. Consider using generics if applicable
             AssertEx.ContainsDiagnostic(info.Allocations, id: TypeConversionAllocationAnalyzer.ValueTypeToReferenceTypeConversionRule.Id, line: 3, character: 18);
         }
 
-        //TODO: [Fact]
+        // TODO: [Fact]
         public void TypeConversionAllocation_ImplicitStringCastOperator()
         {
             var sampleProgram = @"
@@ -427,7 +427,7 @@ var f2 = (object)""5""; // NO Allocation
             ";
             var analyzer = new TypeConversionAllocationAnalyzer();
             var info = ProcessCode(analyzer, sampleProgram, ImmutableArray.Create(SyntaxKind.Argument));
-            Assert.Equal(0, info.Allocations.Count);
+            Assert.Empty(info.Allocations);
             // currently info.Allocations.Count == 1
             // with info.Allocations[0] =
             // (13,50): warning HeapAnalyzerBoxingRule: Value type to reference type conversion causes boxing at call site (here), and unboxing at the callee-site. Consider using generics if applicable
