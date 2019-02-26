@@ -198,6 +198,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FlowAnalysisContext.cs" />
+    <Compile Include="ControlFlow\ControlFlowGraph.cs" />
+    <Compile Include="ControlFlow\ControlFlowNode.cs" />
+    <Compile Include="ControlFlow\IControlFlowNode.cs" />
+    <Compile Include="ControlFlow\LoopHeadControlFlowNode.cs" />
+    <Compile Include="ControlFlow\Statement.cs" />
+    <Compile Include="DataFlow\Analyses\TaintTrackingAnalysis.cs" />
+    <Compile Include="DataFlow\DataFlowGraph.cs" />
+    <Compile Include="DataFlow\DataFlowInfo.cs" />
+    <Compile Include="DataFlow\DataFlowNode.cs" />
+    <Compile Include="DataFlow\IDataFlowAnalysis.cs" />
+    <Compile Include="DataFlow\IDataFlowNode.cs" />
     <Compile Include="DiagnosticId.cs" />
     <Compile Include="Extensions\AnalyzerExtensions.cs" />
     <Compile Include="Extensions\CSharpAnalyzerExtensions.cs" />
@@ -207,7 +219,17 @@
     <Compile Include="Extensions\InitializerState.cs" />
     <Compile Include="FixAllProviders\DocumentCodeFixProviderAll.cs" />
     <Compile Include="FixAllProviders\IFixDocumentInternalsOnly.cs" />
+    <Compile Include="Graphs\Graph.cs" />
+    <Compile Include="Graphs\IGraph.cs" />
+    <Compile Include="Graphs\INode.cs" />
+    <Compile Include="Graphs\ITraversable.cs" />
     <Compile Include="HelpLink.cs" />
+    <Compile Include="Graphs\GivenUpOwnershipSymbol.cs" />
+    <Compile Include="Graphs\IAnalysisPass.cs" />
+    <Compile Include="Graphs\MethodSideEffectsInfo.cs" />
+    <Compile Include="Graphs\MethodSummary.cs" />
+    <Compile Include="Graphs\MethodSummaryResolver.cs" />
+    <Compile Include="Graphs\SymbolDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SupportedCategories.cs" />
   </ItemGroup>

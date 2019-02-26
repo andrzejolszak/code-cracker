@@ -16,13 +16,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceAllocationAnalyzers.Test", "test\CSharp\CodeCracker.Test\PerformanceAllocationAnalyzers.Test.csproj", "{F7843158-046E-4B22-95D7-CAC7BB01283D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfAnalyzers.Analyzers.Test", "test\CSharp\CodeCracker.Test\PerfAnalyzers.Analyzers.Test.csproj", "{F7843158-046E-4B22-95D7-CAC7BB01283D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceAllocationAnalyzers.Test.Common", "test\Common\CodeCracker.Test.Common\PerformanceAllocationAnalyzers.Test.Common.csproj", "{1CD1A3EE-28CE-404B-A59E-AEACF762D938}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfAnalyzers.Test.Common", "test\Common\CodeCracker.Test.Common\PerfAnalyzers.Test.Common.csproj", "{1CD1A3EE-28CE-404B-A59E-AEACF762D938}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfAnalyzers.Analyzers", "src\PerfAnalyzers.Analyzers\PerfAnalyzers.Analyzers.csproj", "{9BDF9AFB-D20A-46B9-922C-A33D066795D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfAnalyzers.Common", "src\PerfAnalyzers.Common\PerfAnalyzers.Common.csproj", "{A172989F-D517-4993-8CC0-322E0463EEB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfAnalyzers.AttributeProcessor", "src\PerfAnalyzers.AttributeProcessor\PerfAnalyzers.AttributeProcessor.csproj", "{46E1341D-8F76-45A6-B1F4-DA3579B400EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +66,14 @@ Global
 		{A172989F-D517-4993-8CC0-322E0463EEB3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A172989F-D517-4993-8CC0-322E0463EEB3}.ReleaseNoVsix|Any CPU.ActiveCfg = Release|Any CPU
 		{A172989F-D517-4993-8CC0-322E0463EEB3}.ReleaseNoVsix|Any CPU.Build.0 = Release|Any CPU
+		{46E1341D-8F76-45A6-B1F4-DA3579B400EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46E1341D-8F76-45A6-B1F4-DA3579B400EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46E1341D-8F76-45A6-B1F4-DA3579B400EB}.DebugNoVsix|Any CPU.ActiveCfg = Debug|Any CPU
+		{46E1341D-8F76-45A6-B1F4-DA3579B400EB}.DebugNoVsix|Any CPU.Build.0 = Debug|Any CPU
+		{46E1341D-8F76-45A6-B1F4-DA3579B400EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46E1341D-8F76-45A6-B1F4-DA3579B400EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46E1341D-8F76-45A6-B1F4-DA3579B400EB}.ReleaseNoVsix|Any CPU.ActiveCfg = Release|Any CPU
+		{46E1341D-8F76-45A6-B1F4-DA3579B400EB}.ReleaseNoVsix|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
