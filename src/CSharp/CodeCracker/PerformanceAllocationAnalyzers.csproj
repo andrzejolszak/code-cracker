@@ -62,17 +62,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CodeCracker.nuspec">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
-    <None Include="tools\install.ps1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="tools\uninstall.ps1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
