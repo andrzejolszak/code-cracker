@@ -1,0 +1,24 @@
+[options="header"]
+|===
+|                      Method|  DataSource|        Median|           P90|  Scaled|  Allocated Memory/Op
+|                ArrayForeach|           ?|      6.375 ns|      8.847 ns|    1.00|                    -
+|                 ListForeach|           ?|     37.810 ns|     49.540 ns|    6.13|                    -
+|                IListForeach|           ?|    120.820 ns|    137.448 ns|   18.69|                 40 B
+|          IEnumerableForeach|           ?|    115.325 ns|    139.590 ns|   18.38|                 40 B
+|              HashSetForeach|           ?|     50.770 ns|     60.332 ns|    7.96|                    -
+|        IReadonlyListForeach|           ?|    122.670 ns|    140.402 ns|   19.29|                 40 B
+|        ImmutableListForeach|           ?|    742.380 ns|    776.730 ns|  116.16|                    -
+|       ImmutableArrayForeach|           ?|      7.375 ns|     10.713 ns|    1.27|                    -
+|     ImmutableHashSetForeach|           ?|  1,572.275 ns|  1,619.508 ns|  246.48|                    -
+|   ReadonlyCollectionForeach|           ?|    119.080 ns|    153.314 ns|   19.79|                 40 B
+|           DictionaryForeach|           ?|    109.740 ns|    125.755 ns|   17.37|                    -
+|          IDictionaryForeach|           ?|    142.690 ns|    176.957 ns|   23.02|                 48 B
+|           ArrayForeachWhere|           ?|     92.230 ns|    122.604 ns|   15.17|                 48 B
+|            ListForeachWhere|           ?|    135.710 ns|    166.196 ns|   21.71|                 72 B
+|           IListForeachWhere|           ?|    139.130 ns|    166.388 ns|   22.21|                 72 B
+|     IEnumerableForeachWhere|           ?|    135.170 ns|    167.040 ns|   21.91|                 72 B
+|         HashSetForeachWhere|           ?|    213.070 ns|    267.958 ns|   35.07|                 97 B
+|   IReadonlyListForeachWhere|           ?|    136.660 ns|    166.065 ns|   21.72|                 72 B
+|   ImmutableListForEachWhere|           ?|    872.240 ns|    931.368 ns|  136.69|                129 B
+|  ImmutableArrayForeachWhere|           ?|    103.860 ns|    125.818 ns|   16.47|                 48 B
+|===
