@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
+using P = Microsoft.CodeAnalysis.CSharp.PatternMatching.Pattern;
 
 namespace PerformanceAllocationAnalyzers.CSharp.Performance
 {
@@ -47,12 +48,33 @@ namespace PerformanceAllocationAnalyzers.CSharp.Performance
         private static void AnalyzeNode(SyntaxNodeAnalysisContext context)
         {
             if (context.IsGenerated()) return;
-            var whereInvoke = (InvocationExpressionSyntax)context.Node;
-            var nameOfWhereInvoke = GetNameOfTheInvokedMethod(whereInvoke);
-            if (nameOfWhereInvoke?.ToString() != "Where") return;
-            if (ArgumentsDoNotMatch(whereInvoke)) return;
+            var node = (InvocationExpressionSyntax)context.Node;
+            IdentifierNameSyntax name = null;
+            var p0 = P.InvocationExpression(expression: P.MemberAccessExpression(name: P.IdentifierName("Where", action: x => name = x)));
+            if (!p0.IsMatch(context.Node))
+            {
+                return;
+            }
 
-            var nextMethodInvoke = whereInvoke.Parent.
+            bool match1 = P.InvocationExpression(
+                argumentList: P.ArgumentList(
+                    P.Argument(
+                        expression: P.SimpleLambdaExpression())))
+                .IsMatch(node);
+
+            bool match2 = P.InvocationExpression(argumentList: P.ArgumentList(
+                P.Argument(
+                    expression: P.ParenthesizedLambdaExpression(
+                        parameterList: P.ParameterList(
+                            P.Parameter())))))
+                .IsMatch(node);
+
+            if (!(match1 || match2))
+            {
+                return;
+            }
+
+            var nextMethodInvoke = node.Parent.
                 FirstAncestorOrSelf<InvocationExpressionSyntax>();
             if (nextMethodInvoke == null) return;
 
@@ -61,23 +83,11 @@ namespace PerformanceAllocationAnalyzers.CSharp.Performance
 
             if (nextMethodInvoke.ArgumentList.Arguments.Any()) return;
             var properties = new Dictionary<string, string> { { "methodName", candidate } }.ToImmutableDictionary();
-            var diagnostic = Diagnostic.Create(Rule, nameOfWhereInvoke.GetLocation(), properties, candidate);
+            var diagnostic = Diagnostic.Create(Rule, name.GetLocation(), properties, candidate);
             context.ReportDiagnostic(diagnostic);
         }
 
-        private static bool ArgumentsDoNotMatch(InvocationExpressionSyntax whereInvoke)
-        {
-            var arguments = whereInvoke.ArgumentList.Arguments;
-            if (arguments.Count != 1) return true;
-            var expression = arguments.First()?.Expression;
-            if (expression == null) return true;
-            if (expression is SimpleLambdaExpressionSyntax) return false;
-            var parenthesizedLambda = expression as ParenthesizedLambdaExpressionSyntax;
-            if (parenthesizedLambda == null) return true;
-            return parenthesizedLambda.ParameterList.Parameters.Count != 1;
-        }
-
         private static SimpleNameSyntax GetNameOfTheInvokedMethod(InvocationExpressionSyntax invoke) =>
-            invoke.ChildNodes().OfType<MemberAccessExpressionSyntax>().FirstOrDefault()?.Name;
+        invoke.ChildNodes().OfType<MemberAccessExpressionSyntax>().FirstOrDefault()?.Name;
     }
 }

@@ -1,10 +1,10 @@
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
 
 namespace PerformanceAllocationAnalyzers.CSharp.Usage
 {
@@ -14,7 +14,6 @@ namespace PerformanceAllocationAnalyzers.CSharp.Usage
         internal const string Title = "Don't concatenate strings in loops";
         internal const string MessageFormat = "Don't concatenate '{0}' in a loop";
         internal const string Category = SupportedCategories.Performance;
-        const string Description = "Don't concatenate strings in a loop. Using a StringBuilder will require less memory and time.";
 
         internal static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             DiagnosticId.StringBuilderInLoop.ToDiagnosticId(),
@@ -26,6 +25,7 @@ namespace PerformanceAllocationAnalyzers.CSharp.Usage
             description: Description,
             helpLinkUri: HelpLink.ForDiagnostic(DiagnosticId.StringBuilderInLoop));
 
+        private const string Description = "Don't concatenate strings in a loop. Using a StringBuilder will require less memory and time.";
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 
         public override void Initialize(AnalysisContext context) =>
@@ -82,5 +82,7 @@ namespace PerformanceAllocationAnalyzers.CSharp.Usage
             var diagnostic = Diagnostic.Create(Rule, assignmentExpression.GetLocation(), properties, assignmentExpressionLeft);
             context.ReportDiagnostic(diagnostic);
         }
+
+        // TODO: Manual vs. PatternMaching
     }
 }
