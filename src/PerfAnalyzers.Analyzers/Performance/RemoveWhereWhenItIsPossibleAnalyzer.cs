@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.PatternMatching;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using P = Microsoft.CodeAnalysis.CSharp.PatternMatching.Pattern;
@@ -67,7 +68,7 @@ namespace PerformanceAllocationAnalyzers.CSharp.Performance
                     expression: P.ParenthesizedLambdaExpression(
                         parameterList: P.ParameterList(
                             P.Parameter())))))
-                .IsMatch(node);
+                .MatchAncestorsAndSelf(node).Count == 1;
 
             if (!(match1 || match2))
             {
